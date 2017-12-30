@@ -32,7 +32,7 @@ public class InputReaderApp {
 
 		//bytes[]
 		long ini = System.currentTimeMillis();
-		try (InputStream fis = new FileInputStream("javifast.gif")) {
+		try (InputStream fis = new FileInputStream("javifast.png")) {
 
 			byte[] arreglo = new byte[1024];
 			int i = fis.read(arreglo);
@@ -49,7 +49,7 @@ public class InputReaderApp {
 		
 		//byte a byte
 		ini = System.currentTimeMillis();
-		try (InputStream fis = new FileInputStream("javifast.gif")) {
+		try (InputStream fis = new FileInputStream("javifast.png")) {
 			
 			int i = fis.read();
 
@@ -68,7 +68,7 @@ public class InputReaderApp {
 		long ini = System.currentTimeMillis();
 		
 		int cantidad = 1024;
-		try (InputStream fis = new BufferedInputStream(new FileInputStream("javifast.gif"), cantidad)) {
+		try (InputStream fis = new BufferedInputStream(new FileInputStream("javifast.png"), cantidad)) {
 			int i = fis.read();
 			while(i != -1){				
 				i = fis.read();				

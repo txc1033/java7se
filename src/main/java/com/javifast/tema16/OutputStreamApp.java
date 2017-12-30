@@ -15,8 +15,8 @@ public class OutputStreamApp {
 		// String texto = "Hola Javifast";
 		InputStream fuente = null;
 		byte[] buffer = new byte[1024 * 8];
-		try (OutputStream destino = new FileOutputStream("txc1033.gif")) {
-			fuente = new FileInputStream("javifast.gif");
+		try (OutputStream destino = new FileOutputStream("txc1033.png")) {
+			fuente = new FileInputStream("javifast.png");
 			int byteRead;
 			while ((byteRead = fuente.read(buffer)) != -1) {
 				destino.write(buffer, 0, byteRead);
@@ -39,8 +39,8 @@ public class OutputStreamApp {
 		byte[] buffer = new byte[BUFFER_SIZE];		
 		InputStream fuente = null;
 		
-		try (OutputStream destino = new BufferedOutputStream(new FileOutputStream("txc1033.gif"), BUFFER_SIZE)) {
-			fuente = new FileInputStream("javifast.gif");
+		try (OutputStream destino = new BufferedOutputStream(new FileOutputStream("txc1033.png"), BUFFER_SIZE)) {
+			fuente = new FileInputStream("javifast.png");
 			int byteRead;
 			
 			while ((byteRead = fuente.read(buffer)) != -1) {
