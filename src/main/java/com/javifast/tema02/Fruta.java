@@ -10,6 +10,7 @@ package com.javifast.tema02;
  * @author javie
  */
 public class Fruta {
+
     private String nombre;
 
     public Fruta(String nombre) {
@@ -23,5 +24,5 @@ public class Fruta {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    
+
 }

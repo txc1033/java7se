@@ -16,110 +16,106 @@ import java.util.List;
 
 public class WatcherApp {
 
-	public void observarDemo() throws Exception {
-		WatchService watcher = FileSystems.getDefault().newWatchService();
+    public void observarDemo() throws Exception {
+        WatchService watcher = FileSystems.getDefault().newWatchService();
 
-		Path dir = Paths.get("javifastCarpeta");
-		dir.register(watcher, ENTRY_CREATE, ENTRY_DELETE,
-				ENTRY_MODIFY);
+        Path dir = Paths.get("javifastCarpeta");
+        dir.register(watcher, ENTRY_CREATE, ENTRY_DELETE,
+                ENTRY_MODIFY);
 
-		System.out.println("Iniciando observación para " + dir.getFileName());
+        System.out.println("Iniciando observación para " + dir.getFileName());
 
-		while (true) {
-			WatchKey key;
+        while (true) {
+            WatchKey key;
 
-			try {
-				key = watcher.take();
-			}
+            try {
+                key = watcher.take();
+            } catch (InterruptedException ex) {
+                System.out.println("Interrupted Exception");
+                return;
+            }
 
-			catch (InterruptedException ex) {
-				System.out.println("Interrupted Exception");
-				return;
-			}			
+            List<WatchEvent<?>> eventList = key.pollEvents();
 
-			List<WatchEvent<?>> eventList = key.pollEvents();
-			
-			for (WatchEvent<?> event : eventList) {
+            for (WatchEvent<?> event : eventList) {
 
-				// obteniendo tipo de evento
-				WatchEvent.Kind<?> kind = event.kind();
+                // obteniendo tipo de evento
+                WatchEvent.Kind<?> kind = event.kind();
 
-				// obteniendo el nombre del archivo
-				Path fileName = (Path)event.context();
+                // obteniendo el nombre del archivo
+                Path fileName = (Path) event.context();
 
-				//System.out.println(kind.name() + ": " + fileName);
+                //System.out.println(kind.name() + ": " + fileName);
+                if (kind == OVERFLOW) {
+                    continue;
+                } else if (kind == ENTRY_DELETE) {
+                    if (fileName.toString().equalsIgnoreCase("javifastCopia.txt")) {
+                        System.out.println("¡[IMPORTANTE] El archivo " + fileName.toString() + " ha sido elimado!");
+                    }
+                }
+            }
 
-				if (kind == OVERFLOW) {
-					continue;
-				}else if(kind == ENTRY_DELETE){
-					if(fileName.toString().equalsIgnoreCase("javifastCopia.txt")){
-						System.out.println("¡[IMPORTANTE] El archivo " + fileName.toString() + " ha sido elimado!");
-					}
-				}					
-			}
+            // IMPORTANTE : La llave debe resetearse despues de un procesamiento
+            boolean valid = key.reset();
+            //System.out.println("Llave reseteada");
+            if (!valid) {
+                break;
+            }
+        }
+        watcher.close();
+        System.out.println("Fin de la observación");
 
-			// IMPORTANTE : La llave debe resetearse despues de un procesamiento
-			boolean valid = key.reset();
-			//System.out.println("Llave reseteada");
-			if (!valid) {
-				break;
-			}
-		}
-		watcher.close();
-		System.out.println("Fin de la observación");
+    }
 
-	}
+    public void observar() throws Exception {
+        WatchService watcher = FileSystems.getDefault().newWatchService();
+        Path dir = Paths.get("javifastCarpeta");
 
-	public void observar() throws Exception{
-		WatchService watcher = FileSystems.getDefault().newWatchService();
-		Path dir = Paths.get("javifastCarpeta");
-		
-		dir.register(watcher, ENTRY_CREATE, ENTRY_MODIFY, ENTRY_DELETE);		
-		System.out.println("Iniciando observación para " + dir.getFileName());
-		
-		while(true){
-			WatchKey key;
-			
-			key = watcher.take();
-			
-			List<WatchEvent<?>> listaEventos = key.pollEvents();
-			
-			for(WatchEvent<?> evento : listaEventos){
-				//Obteniendo tipo de evento
-				Kind<?> tipoEvento = evento.kind();
-				
-				//Obteniendo nombre archivo
-				Path fileName = (Path)evento.context();
-				
-				//System.out.println(tipoEvento.name() + ": " + fileName);
-				
-				if(tipoEvento == OVERFLOW){
-					continue;
-				}else if(tipoEvento == ENTRY_DELETE){
-					if(fileName.toString().equalsIgnoreCase("javifastCopia.txt")){
-						System.out.println("[IMPORTANTE] El archivo " + fileName.toString() + " ha sido eliminado");
-					}
-				}else if(tipoEvento == ENTRY_CREATE){
-					
-				}else if(tipoEvento == ENTRY_MODIFY){
-					
-				}
-				
-			}
-			
-			//IMPORTANTE
-			boolean valid = key.reset();
-			if(!valid){
-				break;
-			}
-		}
-		watcher.close();
-		
-	}
-	
-	public static void main(String... javierMS) throws Exception {
-		WatcherApp app = new WatcherApp();
-		app.observar();
-	}
+        dir.register(watcher, ENTRY_CREATE, ENTRY_MODIFY, ENTRY_DELETE);
+        System.out.println("Iniciando observación para " + dir.getFileName());
+
+        while (true) {
+            WatchKey key;
+
+            key = watcher.take();
+
+            List<WatchEvent<?>> listaEventos = key.pollEvents();
+
+            for (WatchEvent<?> evento : listaEventos) {
+                //Obteniendo tipo de evento
+                Kind<?> tipoEvento = evento.kind();
+
+                //Obteniendo nombre archivo
+                Path fileName = (Path) evento.context();
+
+                //System.out.println(tipoEvento.name() + ": " + fileName);
+                if (tipoEvento == OVERFLOW) {
+                    continue;
+                } else if (tipoEvento == ENTRY_DELETE) {
+                    if (fileName.toString().equalsIgnoreCase("javifastCopia.txt")) {
+                        System.out.println("[IMPORTANTE] El archivo " + fileName.toString() + " ha sido eliminado");
+                    }
+                } else if (tipoEvento == ENTRY_CREATE) {
+
+                } else if (tipoEvento == ENTRY_MODIFY) {
+
+                }
+
+            }
+
+            //IMPORTANTE
+            boolean valid = key.reset();
+            if (!valid) {
+                break;
+            }
+        }
+        watcher.close();
+
+    }
+
+    public static void main(String... javierMS) throws Exception {
+        WatcherApp app = new WatcherApp();
+        app.observar();
+    }
 
 }

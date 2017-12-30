@@ -11,96 +11,96 @@ import java.nio.file.StandardCopyOption;
 
 public class AppNIO2 {
 
-	public void operacionesFile(String operacion) throws IOException {
+    public void operacionesFile(String operacion) throws IOException {
 
-		Path pathOrigen = Paths.get("javifast.txt");
-		Path pathDestino = Paths.get("javifastCarpeta/javifast.txt");
+        Path pathOrigen = Paths.get("javifast.txt");
+        Path pathDestino = Paths.get("javifastCarpeta/javifast.txt");
 
-		switch (operacion) {
-		case "existe":
-			// boolean existe = Files.exists(path, new LinkOption[]{
-			// LinkOption.NOFOLLOW_LINKS});
-			// System.out.println(existe);
-			break;
-		case "crear":
-			// Path nuevoPath = Files.createDirectory(path);
-			break;
-		case "copiar":
-			Files.copy(pathOrigen, pathDestino, StandardCopyOption.REPLACE_EXISTING);
-			break;
-		case "mover":
-			Files.move(pathOrigen, pathDestino, StandardCopyOption.REPLACE_EXISTING);
-			break;
-		case "eliminar":
-			Files.delete(pathDestino);
-			break;
-		}
+        switch (operacion) {
+            case "existe":
+                // boolean existe = Files.exists(path, new LinkOption[]{
+                // LinkOption.NOFOLLOW_LINKS});
+                // System.out.println(existe);
+                break;
+            case "crear":
+                // Path nuevoPath = Files.createDirectory(path);
+                break;
+            case "copiar":
+                Files.copy(pathOrigen, pathDestino, StandardCopyOption.REPLACE_EXISTING);
+                break;
+            case "mover":
+                Files.move(pathOrigen, pathDestino, StandardCopyOption.REPLACE_EXISTING);
+                break;
+            case "eliminar":
+                Files.delete(pathDestino);
+                break;
+        }
 
-	}
+    }
 
-	public void leer() throws IOException {
-		Path path = Paths.get("javifastCopia.txt");
+    public void leer() throws IOException {
+        Path path = Paths.get("javifastCopia.txt");
 
-		byte[] bytes = Files.readAllBytes(path);
+        byte[] bytes = Files.readAllBytes(path);
 
-		for (byte b : bytes) {
-			System.out.print((char) b);
-		}
-	}
+        for (byte b : bytes) {
+            System.out.print((char) b);
+        }
+    }
 
-	public void escribir() throws IOException {
-		Path path = Paths.get("javifastCopia.txt");
+    public void escribir() throws IOException {
+        Path path = Paths.get("javifastCopia.txt");
 
-		String texto = "Coders";
-		Files.write(path, texto.getBytes());
-	}
+        String texto = "Coders";
+        Files.write(path, texto.getBytes());
+    }
 
-	public void leerPorChannel() throws IOException {
-		RandomAccessFile file = new RandomAccessFile("javifastCopia.txt", "rw");
-		FileChannel channel = file.getChannel();
-		
-		long size = channel.size();
-		ByteBuffer buf = ByteBuffer.allocate((int)size);
+    public void leerPorChannel() throws IOException {
+        RandomAccessFile file = new RandomAccessFile("javifastCopia.txt", "rw");
+        FileChannel channel = file.getChannel();
 
-		int bytesRead = channel.read(buf);
-		while (bytesRead != -1) {
+        long size = channel.size();
+        ByteBuffer buf = ByteBuffer.allocate((int) size);
 
-			System.out.println("Leidos " + bytesRead);
-			
-			buf.flip(); //Preparado el buffer para leer
+        int bytesRead = channel.read(buf);
+        while (bytesRead != -1) {
 
-			while (buf.hasRemaining()) {
-				System.out.print((char) buf.get());
-			}
+            System.out.println("Leidos " + bytesRead);
 
-			buf.clear(); //Cambio a modo escritura
-			bytesRead = channel.read(buf);
-		}
-		file.close();
-	}
+            buf.flip(); //Preparado el buffer para leer
 
-	public void escribirPorChannel() throws IOException {
-		RandomAccessFile file = new RandomAccessFile("javifastCopia.txt", "rw");
-		FileChannel channel = file.getChannel();
-		
-		String texto = "Hola";		
+            while (buf.hasRemaining()) {
+                System.out.print((char) buf.get());
+            }
 
-		ByteBuffer buf = ByteBuffer.allocate(128);
-		buf.clear(); //modo escritura
-		buf.put(texto.getBytes());
+            buf.clear(); //Cambio a modo escritura
+            bytesRead = channel.read(buf);
+        }
+        file.close();
+    }
 
-		buf.flip();
+    public void escribirPorChannel() throws IOException {
+        RandomAccessFile file = new RandomAccessFile("javifastCopia.txt", "rw");
+        FileChannel channel = file.getChannel();
 
-		while(buf.hasRemaining()) {
-		    channel.write(buf);
-		}
-		file.close();
-	}
+        String texto = "Hola";
 
-	public static void main(String... javierMS) throws IOException {
-		AppNIO2 app = new AppNIO2();
-		app.escribirPorChannel();
-		app.leerPorChannel();
-	}
+        ByteBuffer buf = ByteBuffer.allocate(128);
+        buf.clear(); //modo escritura
+        buf.put(texto.getBytes());
+
+        buf.flip();
+
+        while (buf.hasRemaining()) {
+            channel.write(buf);
+        }
+        file.close();
+    }
+
+    public static void main(String... javierMS) throws IOException {
+        AppNIO2 app = new AppNIO2();
+        app.escribirPorChannel();
+        app.leerPorChannel();
+    }
 
 }

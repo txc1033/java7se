@@ -11,35 +11,35 @@ import java.io.Writer;
 
 public class AppReader {
 
-	private int BUFFER_SIZE = 8 * 1024;
+    private int BUFFER_SIZE = 8 * 1024;
 
-	public void leer() throws IOException {
+    public void leer() throws IOException {
 
-		try (Reader r = new BufferedReader(new FileReader("javifast.txt"), BUFFER_SIZE)) {
-			int data = r.read();
-			System.out.println((char) data);
-			while (data != -1) {
-				data = r.read();
-				System.out.println((char) data);
-			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+        try (Reader r = new BufferedReader(new FileReader("javifast.txt"), BUFFER_SIZE)) {
+            int data = r.read();
+            System.out.println((char) data);
+            while (data != -1) {
+                data = r.read();
+                System.out.println((char) data);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
-	}
+    }
 
-	public void escribir() throws IOException {
-		try (Writer w = new BufferedWriter(new FileWriter("javifast.txt"), BUFFER_SIZE)) {
-			w.write("XD");
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+    public void escribir() throws IOException {
+        try (Writer w = new BufferedWriter(new FileWriter("javifast.txt"), BUFFER_SIZE)) {
+            w.write("XD");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
-	}
+    }
 
-	public static void main(String... javierMS) throws IOException {
-		AppReader app = new AppReader();
-		// app.leer();
-		app.escribir();
-	}
+    public static void main(String... javierMS) throws IOException {
+        AppReader app = new AppReader();
+         //app.leer();
+        app.escribir();
+    }
 }

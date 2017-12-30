@@ -6,32 +6,31 @@ import java.util.regex.Pattern;
 
 public class TestPerfomance {
 
-	public static void main(String... javierMS) {
-		long begin = System.nanoTime();
+    public static void main(String... javierMS) {
+        long begin = System.nanoTime();
 
-		ArrayList<String[]> list = new ArrayList<String[]>(1000000);
-		for (int i = 0; i < 1000000; i++) {
-			String[] split = "Hello World".split(" ");
-			//list.add(split);
-		}
+        ArrayList<String[]> list = new ArrayList<String[]>(1000000);
+        for (int i = 0; i < 1000000; i++) {
+            String[] split = "Hello World".split(" ");
+            //list.add(split);
+        }
 
-		long end = System.nanoTime();		
+        long end = System.nanoTime();
 
-		System.out.println(TimeUnit.MILLISECONDS.convert(end - begin, TimeUnit.NANOSECONDS));
-		
-		
-		Pattern pattern = Pattern.compile(" ");
-		long begin2 = System.nanoTime();
+        System.out.println(TimeUnit.MILLISECONDS.convert(end - begin, TimeUnit.NANOSECONDS));
 
-		ArrayList<String[]> list2 = new ArrayList<String[]>(1000000);
-		for (int i = 0; i < 1000000; i++) {
-			String[] split = pattern.split("Hello World", 0);
-			list2.add(split);
-		}
+        Pattern pattern = Pattern.compile(" ");
+        long begin2 = System.nanoTime();
 
-		long end2 = System.nanoTime();		
+        ArrayList<String[]> list2 = new ArrayList<String[]>(1000000);
+        for (int i = 0; i < 1000000; i++) {
+            String[] split = pattern.split("Hello World", 0);
+            list2.add(split);
+        }
 
-		System.out.println(TimeUnit.MILLISECONDS.convert(end2 - begin2, TimeUnit.NANOSECONDS));
-	}
+        long end2 = System.nanoTime();
+
+        System.out.println(TimeUnit.MILLISECONDS.convert(end2 - begin2, TimeUnit.NANOSECONDS));
+    }
 
 }

@@ -10,7 +10,7 @@ package com.javifast.tema02;
  * @author javie
  */
 public class Galleta {
-    
+
     private String nombre;
 
     public Galleta(String nombre) {
@@ -25,5 +25,4 @@ public class Galleta {
         this.nombre = nombre;
     }
 
-    
 }

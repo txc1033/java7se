@@ -10,7 +10,8 @@ package com.javifast.tema01;
  * @author javie
  */
 public class Alumno extends Persona {
-    public static int sumar(int numero){
-        return numero+2; 
+
+    public static int sumar(int numero) {
+        return numero + 2;
     }
 }

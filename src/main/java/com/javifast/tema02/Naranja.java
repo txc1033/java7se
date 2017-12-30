@@ -9,10 +9,10 @@ package com.javifast.tema02;
  *
  * @author javie
  */
-public class Naranja extends Fruta{
-    
+public class Naranja extends Fruta {
+
     public Naranja(String nombre) {
         super(nombre);
     }
-    
+
 }

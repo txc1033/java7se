@@ -10,5 +10,5 @@ package com.javifast.tema02;
  * @author javie
  */
 public class Alumno extends Persona {
-    
+
 }

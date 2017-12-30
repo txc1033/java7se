@@ -1,4 +1,3 @@
-
 package com.javifast.tema03;
 
 /**
@@ -6,6 +5,7 @@ package com.javifast.tema03;
  * @author javie
  */
 public class Pais {
+
     private String nombre;
 
     public String getNombre() {
