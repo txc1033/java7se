@@ -2,6 +2,7 @@ package com.javifast.tema20;
 
 public class THilo extends Thread {
 
+    @SuppressWarnings("FieldMayBeFinal")
     private int id;
 
     public THilo(int id) {

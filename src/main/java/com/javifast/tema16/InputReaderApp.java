@@ -9,6 +9,7 @@ import java.io.Reader;
 
 public class InputReaderApp {
 
+    @SuppressWarnings("ConvertToTryWithResources")
     public void leerPorFileReader() throws IOException {
         Reader fr = null;
         try {

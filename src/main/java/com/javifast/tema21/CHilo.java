@@ -4,6 +4,7 @@ import java.util.concurrent.Callable;
 
 public class CHilo implements Callable<String> {
 
+    @SuppressWarnings("FieldMayBeFinal")
     private int segundos;
 
     public CHilo(int segundos) {

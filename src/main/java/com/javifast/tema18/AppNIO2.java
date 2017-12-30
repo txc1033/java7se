@@ -55,6 +55,7 @@ public class AppNIO2 {
         Files.write(path, texto.getBytes());
     }
 
+    @SuppressWarnings("ConvertToTryWithResources")
     public void leerPorChannel() throws IOException {
         RandomAccessFile file = new RandomAccessFile("javifastCopia.txt", "rw");
         FileChannel channel = file.getChannel();
@@ -79,6 +80,7 @@ public class AppNIO2 {
         file.close();
     }
 
+    @SuppressWarnings("ConvertToTryWithResources")
     public void escribirPorChannel() throws IOException {
         RandomAccessFile file = new RandomAccessFile("javifastCopia.txt", "rw");
         FileChannel channel = file.getChannel();

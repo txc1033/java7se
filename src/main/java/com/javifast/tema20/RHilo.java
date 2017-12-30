@@ -2,6 +2,7 @@ package com.javifast.tema20;
 
 public class RHilo implements Runnable {
 
+    @SuppressWarnings("FieldMayBeFinal")
     private int id;
 
     public RHilo(int id) {

@@ -33,11 +33,11 @@ public class AppStatement {
     public void registrarCallableStatement(Persona per) {
         try {
             String sql = "{call spTest(?,?)}";
-            CallableStatement cs = con.prepareCall(sql);
-            cs.setString(1, per.getNombre());
-            cs.setString(2, per.getPass());
-            cs.execute();
-            cs.close();
+            try (CallableStatement cs = con.prepareCall(sql)) {
+                cs.setString(1, per.getNombre());
+                cs.setString(2, per.getPass());
+                cs.execute();
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -46,17 +46,17 @@ public class AppStatement {
     public void listarCallableStatement() {
         try {
             String sql = "{call spListar()}";
-            CallableStatement cs = con.prepareCall(sql);
-            cs.execute();
-
-            ResultSet rs = cs.getResultSet();
-
-            while (rs.next()) {
-                System.out.print(rs.getInt("id"));
-                System.out.print(rs.getString("nombre"));
-                System.out.println(rs.getString("pass"));
+            try (CallableStatement cs = con.prepareCall(sql)) {
+                cs.execute();
+                
+                ResultSet rs = cs.getResultSet();
+                
+                while (rs.next()) {
+                    System.out.print(rs.getInt("id"));
+                    System.out.print(rs.getString("nombre"));
+                    System.out.println(rs.getString("pass"));
+                }
             }
-            cs.close();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -65,14 +65,14 @@ public class AppStatement {
     public void listarOutCallableStatement(Persona per) {
         try {
             String sql = "{call spSalidaID(?,?)}";
-            CallableStatement cs = con.prepareCall(sql);
-            cs.setString(1, per.getNombre());
-            cs.registerOutParameter("idParam", Types.INTEGER);
-            cs.execute();
-
-            int idSalida = cs.getInt("idParam");
-            System.out.println("El codigo obtenido de salida es: " + idSalida);
-            cs.close();
+            try (CallableStatement cs = con.prepareCall(sql)) {
+                cs.setString(1, per.getNombre());
+                cs.registerOutParameter("idParam", Types.INTEGER);
+                cs.execute();
+                
+                int idSalida = cs.getInt("idParam");
+                System.out.println("El codigo obtenido de salida es: " + idSalida);
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -100,6 +100,7 @@ public class AppStatement {
         System.out.println("Statement : " + (fin - ini));
     }
 
+    @SuppressWarnings("null")
     public void modificarBatchPreparedStatement(Persona per) throws SQLException {
         long ini = System.currentTimeMillis();
         try {
@@ -123,6 +124,7 @@ public class AppStatement {
         System.out.println("PreparedStatement : " + (fin - ini));
     }
 
+    @SuppressWarnings("null")
     public boolean leerPreparedStatement(Persona per) throws SQLException {
         boolean rpta = false;
         PreparedStatement ps = null;

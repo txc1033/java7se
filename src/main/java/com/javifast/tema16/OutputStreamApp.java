@@ -60,9 +60,11 @@ public class OutputStreamApp {
     public static void main(String[] args) throws IOException {
         final OutputStreamApp app = new OutputStreamApp();
 
-        Runnable r1 = new Runnable() {
-
+        Runnable r1;
+        r1 = new Runnable() {
+            
             @Override
+            @SuppressWarnings("CallToPrintStackTrace")
             public void run() {
                 try {
                     app.escribirPorOutputStream();
@@ -76,6 +78,7 @@ public class OutputStreamApp {
         Runnable r2 = new Runnable() {
 
             @Override
+            @SuppressWarnings("CallToPrintStackTrace")
             public void run() {
                 try {
                     app.escribirPorBufferedOutputStream();
