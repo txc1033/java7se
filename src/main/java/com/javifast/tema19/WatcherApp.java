@@ -93,9 +93,9 @@ public class WatcherApp {
                             System.out.println("[IMPORTANTE] El archivo " + fileName.toString() + " ha sido eliminado");
                         }
                     } else if (tipoEvento == ENTRY_CREATE) {
-                        
+                            System.out.println("[IMPORTANTE] El archivo " + fileName.toString() + " ha sido creado");
                     } else if (tipoEvento == ENTRY_MODIFY) {
-                        
+                            System.out.println("[IMPORTANTE] El archivo " + fileName.toString() + " ha sido modificado");
                     }
 
                 }
