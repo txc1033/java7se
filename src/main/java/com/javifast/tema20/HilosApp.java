@@ -6,7 +6,7 @@ public class HilosApp {
 
         THilo hilo1 = new THilo(1);
         hilo1.start();
-
+        Thread.sleep(1800);
         Thread hilo2 = new Thread(new RHilo(2));
         hilo2.start();
 
